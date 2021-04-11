@@ -36,13 +36,8 @@ export default class ChuckNorris extends Component {
           {this.state.loading ? <div class="loader" id="loader-1"></div> : ""}
           {this.state.categories.map((cat) => (
             <li key={cat}>
-              <button
-                value={cat}
-                onClick={this.onChange}
-                checked={this.state.category === cat}
-              >
-                {cat}
-              </button>
+              <input type="radio" id={cat} value={cat} onChange={this.onChange} checked={this.state.category === cat}/>
+              <label htmlFor={cat}>{cat}</label>
             </li>
           ))}
         </ul>

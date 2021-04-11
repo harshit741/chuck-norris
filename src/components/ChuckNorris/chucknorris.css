@@ -14,22 +14,22 @@
   position: relative;
   float: left;
   list-style: none;
-  padding: 10px;
-  margin: 20px;
 }
-.category-list li button {
-  border-radius: 5px;
-  display: block;
-  font-size: 16px;
-  padding: 10px;
-  border: none;
-  background: #fff;
-  outline: none;
-  text-transform: capitalize;
+.category-list input[type=radio] {
+  visibility: hidden;
 }
-.category-list li button:focus {
+.category-list li input[type="radio"]:checked + label {
   background: #1581c4;
   color: #fff;
+}
+.category-list label{
+	width: fit-content;
+	position: relative;
+	float: left;
+	padding: 10px;
+	margin: 10px;
+	background-color: #fff;
+	border-radius: 5px;
 }
 .selected-category {
   display: flex;
@@ -53,49 +53,49 @@
   color: #1581c4;
   outline: none;
 }
-.loader{
-	width: 50px;
-	height: 50px;
-	border-radius: 100%;
-	position: relative;
+.loader {
+  width: 50px;
+  height: 50px;
+  border-radius: 100%;
+  position: relative;
+}
+
+/* LOADER 1 */
+
+#loader-1:before,
+#loader-1:after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 100%;
+  height: 100%;
+  border-radius: 100%;
+  border: 10px solid transparent;
+  border-top-color: #3498db;
+}
+
+#loader-1:before {
+  z-index: 100;
+  animation: spin 1s infinite;
+}
+
+#loader-1:after {
+  border: 10px solid #ccc;
+}
+
+@keyframes spin {
+  0% {
+    -webkit-transform: rotate(0deg);
+    -ms-transform: rotate(0deg);
+    -o-transform: rotate(0deg);
+    transform: rotate(0deg);
   }
-  
-  /* LOADER 1 */
-  
-  #loader-1:before, #loader-1:after{
-	content: "";
-	position: absolute;
-	top: 50%;
-	left: 50%;
-	width: 100%;
-	height: 100%;
-	border-radius: 100%;
-	border: 10px solid transparent;
-	border-top-color: #3498db;
+
+  100% {
+    -webkit-transform: rotate(360deg);
+    -ms-transform: rotate(360deg);
+    -o-transform: rotate(360deg);
+    transform: rotate(360deg);
   }
-  
-  #loader-1:before{
-	z-index: 100;
-	animation: spin 1s infinite;
-  }
-  
-  #loader-1:after{
-	border: 10px solid #ccc;
-  }
-  
-  @keyframes spin{
-	0%{
-	  -webkit-transform: rotate(0deg);
-	  -ms-transform: rotate(0deg);
-	  -o-transform: rotate(0deg);
-	  transform: rotate(0deg);
-	}
-  
-	100%{
-	  -webkit-transform: rotate(360deg);
-	  -ms-transform: rotate(360deg);
-	  -o-transform: rotate(360deg);
-	  transform: rotate(360deg);
-	}
-  }
-  
+}
