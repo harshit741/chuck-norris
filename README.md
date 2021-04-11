@@ -12,3 +12,5 @@ To start server
 ```bash
 npm start
 ```
+
+You can check the live demo here...[Chuck-norris-joke](https://eager-hoover-06d883.netlify.app/)
