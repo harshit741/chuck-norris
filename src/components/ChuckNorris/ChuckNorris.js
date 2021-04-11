@@ -1,6 +1,7 @@
 import axios from "axios";
 import React, { Component } from "react";
 import "./chucknorris.css";
+import BeatLoader from "react-spinners/BeatLoader";
 
 export default class ChuckNorris extends Component {
   constructor(props) {
@@ -13,15 +14,16 @@ export default class ChuckNorris extends Component {
       loading: true,
     };
   }
-  onChange = (e) => {
+  onChange = (cat) => {
     const joke = async () => {
-      const url = `https://api.chucknorris.io/jokes/random?category=` + cat;
+      const url = `https://api.chucknorris.io/jokes/random?category=${this.state.category}`;
       const res = await axios.get(url);
       this.setState({ joke: res.data.value });
     };
-    const cat = e.target.value;
-    this.setState({ category: cat });
-    joke();
+
+    this.setState({ category: cat }, () => {
+      joke();
+    });
   };
 
   async componentDidMount() {
@@ -32,15 +34,28 @@ export default class ChuckNorris extends Component {
   render() {
     return (
       <div className="container">
-        <ul className="category-list">
-          {this.state.loading ? <div class="loader" id="loader-1"></div> : ""}
-          {this.state.categories.map((cat) => (
-            <li key={cat}>
-              <input type="radio" id={cat} value={cat} onChange={this.onChange} checked={this.state.category === cat}/>
-              <label htmlFor={cat}>{cat}</label>
-            </li>
-          ))}
-        </ul>
+        <div className="category-list-container">
+          {this.state.loading ? <BeatLoader color={'#1581c4'} size={20} /> : null}
+          {this.state.categories.length ? (
+            <ul className="category-list">
+              {this.state.categories.map((cat) => (
+                <li key={cat}>
+                  <button
+                    className={`cat-btn ${
+                      cat === this.state.category ? "cat-active" : ""
+                    }`}
+                    onClick={(e) => {
+                      this.onChange(cat);
+                    }}
+                  >
+                    {cat}
+                  </button>
+                </li>
+              ))}
+            </ul>
+          ) : null}
+        </div>
+
         <div className="selected-category">
           Selected Category:{" "}
           {this.state.category ? this.state.category : "None"}
@@ -52,7 +67,9 @@ export default class ChuckNorris extends Component {
           className="new-joke-button"
           disabled={this.state.category === null}
           value={this.state.category}
-          onClick={this.onChange}
+          onClick={(e) => {
+            this.onChange(this.state.category);
+          }}
         >
           New joke
         </button>
